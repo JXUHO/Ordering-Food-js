@@ -18,9 +18,9 @@ const HeaderCartButton = (props) => {
   const btnClasses = `${classes.button} ${btnIsHighlighted ? classes.bump : ''}`;
 
   useEffect(() => {
-    console.log("useEffect")
+    // console.log("useEffect")
     if (items.length === 0) {
-      console.log("return")
+      // console.log("return")
       return;
     }
     setBtnIsHighlighted(true);
