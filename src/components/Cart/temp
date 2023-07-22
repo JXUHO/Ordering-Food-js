@@ -1,0 +1,73 @@
+// import CartContext from "../../store/cart-context";
+// import useInput from "../../hooks/use-input";
+// import CheckoutInput from "./CheckoutInput";
+
+// import classes from "./Checkout.module.css";
+// import { useContext } from "react";
+
+// const isNumber = (value) => /^\d*$/.test(value);
+
+// const Checkout = (props) => {
+//   const cartCtx = useContext(CartContext);
+//   const nameInput = useInput();
+//   const streetInput = useInput();
+//   const postalInput = useInput(isNumber);
+//   const cityInput = useInput();
+
+//   const disableButton = !(
+//     nameInput.isValid &&
+//     streetInput.isValid &&
+//     postalInput.isValid &&
+//     cityInput.isValid
+//   );
+
+//   const confirmHandler = (event) => {
+//     event.preventDefault();
+
+//     let orderArr = [];
+//     for (let i = 0; i < cartCtx.items.length; i++) {
+//       orderArr.push({ [cartCtx.items[i].name]: cartCtx.items[i].amount });
+//     }
+
+//     const orderInfo = {
+//       order: orderArr,
+//       delivery: {
+//         name: nameInput.inputState,
+//         street: streetInput.inputState,
+//         postal: postalInput.inputState,
+//         city: cityInput.inputState,
+//       },
+//       total: cartCtx.totalAmount,
+//     };
+
+//     props.onHideCart(); // confirm 누르면 modal 닫힘...
+//   };
+
+//   return (
+//     <form className={classes.form} onSubmit={confirmHandler}>
+//       <CheckoutInput id="name" input={nameInput} />
+//       <CheckoutInput id="street" input={streetInput} />
+//       <CheckoutInput id="postal" input={postalInput}>
+//         {postalInput.isBlured &&
+//           !postalInput.isValid &&
+//           !postalInput.isEmpty && <p>postal should be number</p>}
+//       </CheckoutInput>
+//       <CheckoutInput id="city" input={cityInput} />
+
+//       <div className={classes.actions}>
+//         <button type="button" onClick={props.onCancel}>
+//           Cancel
+//         </button>
+//         <button
+//           disabled={disableButton}
+//           className={classes.submit}
+//           onClick={confirmHandler}
+//         >
+//           Confirm
+//         </button>
+//       </div>
+//     </form>
+//   );
+// };
+
+// export default Checkout;
