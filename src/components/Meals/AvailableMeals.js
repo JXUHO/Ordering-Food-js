@@ -33,9 +33,13 @@ import classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   const [mealsList, setMealsList] = useState();
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getMeals = async () => {
+      setError(null);
+      setIsLoading(true);
       try {
         const response = await fetch(
           "https://react-http-practice-6fe63-default-rtdb.asia-southeast1.firebasedatabase.app/meals/-N_sGEsZVH0lkXMeoB3q.json"
@@ -58,17 +62,20 @@ const AvailableMeals = () => {
           );
         });
         setMealsList(meals)
-
-      } catch (error) {
-        console.log(error);
+        setIsLoading(false);
+      } catch (err) {
+        setError(err.message);
       }
     };
     getMeals();
+    
   }, []);
 
   return (
     <section className={classes.meals}>
       <Card>
+        {isLoading && !error && <p>Loading...</p>}
+        {error && <p>{error}</p>}
         <ul>{mealsList}</ul>
       </Card>
     </section>
