@@ -48,6 +48,7 @@ const AvailableMeals = () => {
           throw new Error("request failed");
         }
         const data = await response.json();
+        console.log(data)
 
         const meals = [];
         data.forEach((meal) => {
@@ -61,14 +62,13 @@ const AvailableMeals = () => {
             />
           );
         });
-        setMealsList(meals)
+        setMealsList(meals);
         setIsLoading(false);
       } catch (err) {
         setError(err.message);
       }
     };
     getMeals();
-    
   }, []);
 
   return (

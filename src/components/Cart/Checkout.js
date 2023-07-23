@@ -3,11 +3,14 @@ import useInput from "../../hooks/use-input";
 import CheckoutInput from "./CheckoutInput";
 
 import classes from "./Checkout.module.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const isNumber = (value) => /^\d*$/.test(value);
 
 const Checkout = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const cartCtx = useContext(CartContext);
   const nameInput = useInput();
   const streetInput = useInput();
@@ -23,7 +26,7 @@ const Checkout = (props) => {
 
   const confirmHandler = async (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     let orderArr = [];
     for (let i = 0; i < cartCtx.items.length; i++) {
       orderArr.push({ [cartCtx.items[i].name]: cartCtx.items[i].amount });
@@ -51,14 +54,15 @@ const Checkout = (props) => {
           body: JSON.stringify(orderInfo),
         }
       );
-      if (!response.ok){
+      if (!response.ok) {
         throw new Error("request failed");
       }
+      props.onHideCart();
     } catch (err) {
-      console.log(err.message);
+      setError(err.message);
+      // console.log(err.message);
     }
-
-    props.onHideCart(); 
+    setIsLoading(false);
   };
 
   return (
@@ -73,6 +77,7 @@ const Checkout = (props) => {
       <CheckoutInput id="city" input={cityInput} />
 
       <div className={classes.actions}>
+        {error && <p>{error}</p>}
         <button type="button" onClick={props.onCancel}>
           Cancel
         </button>
@@ -81,7 +86,7 @@ const Checkout = (props) => {
           className={classes.submit}
           onClick={confirmHandler}
         >
-          Confirm
+          {isLoading ? "Sending.." : "Confirm"}
         </button>
       </div>
     </form>
