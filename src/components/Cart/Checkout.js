@@ -58,11 +58,10 @@ const Checkout = (props) => {
         throw new Error("request failed");
       }
       cartCtx.clearItem();
-      props.onHideCart();
+      props.onSendSuccess();
     } catch (err) {
       setError(err.message);
       console.log(err.message);
-
     }
     setIsLoading(false);
   };

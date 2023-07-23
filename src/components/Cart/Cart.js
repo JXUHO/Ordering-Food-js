@@ -7,6 +7,8 @@ import Modal from "../UI/Modal";
 import CartContext from "../../store/cart-context";
 
 const Cart = (props) => {
+  const [isSended, setIsSended] = useState(false);
+
   const [openCheckout, setOpenCheckout] = useState(false);
   const cartCtx = useContext(CartContext);
 
@@ -26,6 +28,10 @@ const Cart = (props) => {
 
   const cancelCheckoutHandler = () => {
     setOpenCheckout(false);
+  };
+
+  const sendSuccessHandler = () => {
+    setIsSended(true);
   };
 
   const cartItems = (
@@ -59,19 +65,32 @@ const Cart = (props) => {
 
   return (
     <Modal onHideCart={props.onHideCart}>
-      {cartItems}
-      <div className={classes.total}>
-        <span>Total Amount</span>
-        <span>{totalAmount}</span>
-      </div>
+      {isSended ? (
+        <div className={classes.actions}>
+          <p style={{ textAlign: "center", fontSize: "25px" }}>
+            sending succeed
+          </p>
+          <button className={classes.button} onClick={props.onHideCart}>
+            Okay
+          </button>
+        </div>
+      ) : (
+        <>
+          {cartItems}
+          <div className={classes.total}>
+            <span>Total Amount</span>
+            <span>{totalAmount}</span>
+          </div>
 
-      {!openCheckout && modalActions}
+          {!openCheckout && modalActions}
 
-      {openCheckout && (
-        <Checkout
-          onCancel={cancelCheckoutHandler}
-          onHideCart={props.onHideCart}
-        />
+          {openCheckout && (
+            <Checkout
+              onCancel={cancelCheckoutHandler}
+              onSendSuccess={sendSuccessHandler}
+            />
+          )}
+        </>
       )}
     </Modal>
   );
