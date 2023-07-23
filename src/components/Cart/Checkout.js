@@ -57,6 +57,7 @@ const Checkout = (props) => {
       if (!response.ok) {
         throw new Error("request failed");
       }
+      cartCtx.clearItem();
       props.onHideCart();
     } catch (err) {
       setError(err.message);
