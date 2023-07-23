@@ -60,7 +60,8 @@ const Checkout = (props) => {
       props.onHideCart();
     } catch (err) {
       setError(err.message);
-      // console.log(err.message);
+      console.log(err.message);
+
     }
     setIsLoading(false);
   };
