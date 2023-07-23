@@ -1,8 +1,10 @@
 import classes from "./Checkout.module.css"
 
 const CheckoutInput = (props) => {
+  let invalidStyle = props.input.isBlured && props.input.isEmpty
+
   return (
-    <div className={classes.control}>
+    <div className={`${classes.control} ${invalidStyle && classes.invalid}`}>
       <label htmlFor={props.id}> {props.id.charAt(0).toUpperCase() + props.id.slice(1)}</label>
       <input
         type="text"

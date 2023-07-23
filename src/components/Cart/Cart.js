@@ -51,8 +51,8 @@ const Cart = (props) => {
    * - checkout form에서 사용자 입력(주소, 이름)받고 keystroke마다 validation 확인  (해결)
    * - confirm버튼 모든 조건 충족 안됐을 때 disabled  (해결) 
    * - 모든 form이 valid하면, order 누르면 backend로 fetch  (해결)
-   * - order fetch할때, loading, error state 적용하기
-   * - CSS클래스 적용하기
+   * - Checkout component에서 order fetch할때, loading, error state 적용하기  (해결)
+   * - CSS클래스 적용하기  (해결)
    * - 주문 3종류 이상 됐을때 Checkout expand되면 confirm 아래로 내려가서 안보임
    *
    */
@@ -96,7 +96,6 @@ const Cart = (props) => {
         <Checkout
           onCancel={cancelCheckoutHandler}
           onHideCart={props.onHideCart}
-          // onConfirm={confirmCheckoutHandler}
         />
       )}
     </Modal>
